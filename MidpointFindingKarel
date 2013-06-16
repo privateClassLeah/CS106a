@@ -1,0 +1,64 @@
+/*
+ * File: MidpointFind.java
+ * -------------------------------
+ * When you finish writing it, the MidpointFindingKarel class should
+ * leave a beeper on the corner closest to the center of 1st Street
+ * (or either of the two central corners if 1st Street has an even
+ * number of corners).  Karel can put down additional beepers as it
+ * looks for the midpoint, but must pick them up again before it
+ * stops.  The world may be of any size, but you are allowed to
+ * assume that it is at least as tall as it is wide.
+ */
+ 
+import stanford.karel.*;
+
+
+public class MidpointFind extends SuperKarel {
+/* Karel needs to find the midpoint of first street. In order to do that he needs to:
+ * 1. Drop Beeper in west corner then move to east corner.
+ * 2. Work his way in from the west/east corners until he is in the middle. Dropping beepers one by one. Pickup non-needed beepers as he goes.
+ * 3. Then Karel needs to pickup leftover beeper in center.
+ */
+  public void run() {	
+      dropCornerBeepers();
+		  workWayIn();
+	  	if (facingWest()) {
+			    turnAround();
+		  }
+	} 
+/* pre-condition: Karel starts in 1,1 facing east. 
+ * post-condition: Karel ends bottom east corner facing west. With a beeper under him and in 1,1.
+ */
+	private void dropCornerBeepers() {
+	  	putBeeper();
+	  	while(frontIsClear()){
+	  	  	move();
+	  	}
+	  	putBeeper();
+	  	turnAround();
+	}
+/* pre-condition: Karel is facing west in bottom east corner.
+ * post condition: Karel is in the middle of 1st street.
+ */
+	private void workWayIn() {
+	  	move();
+	  	while(frontIsClear()&& noBeepersPresent()){
+	    		move();
+	  	}
+	  	findMidpoint();
+	}
+/* pre-condition: Karel standing on a beeper that is not the middle. 
+ * post-condition: Karel ends in the middle of 1st street with a beeper under him.
+ */
+	private void findMidpoint() {
+		  if (beepersPresent()){
+		    	pickBeeper();
+		  }
+		  turnAround();
+		  move();
+		  if (noBeepersPresent()){
+		    	putBeeper();
+		    	workWayIn();
+	  	} 
+	 }	
+}
