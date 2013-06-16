@@ -16,7 +16,8 @@ import stanford.karel.*;
 public class MidpointFind extends SuperKarel {
 /* Karel needs to find the midpoint of first street. In order to do that he needs to:
  * 1. Drop Beeper in west corner then move to east corner.
- * 2. Work his way in from the west/east corners until he is in the middle. Dropping beepers one by one. Pickup non-needed beepers as he goes.
+ * 2. Work his way in from the west/east corners until he is in the middle. 
+ 	Dropping beepers one by one. Pickup non-needed beepers as he goes.
  * 3. Then Karel needs to pickup leftover beeper in center.
  */
   public void run() {	
